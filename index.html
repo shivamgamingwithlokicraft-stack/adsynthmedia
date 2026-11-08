@@ -5,256 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>adsynthmedia | Premium Fashion & Home</title>
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-
-  <style>
-    /* ============================================================
-       1. CSS VARIABLES & RESET
-       ============================================================ */
-    :root {
-      --bg: #faf9f8;
-      --surface: #ffffff;
-      --text: #111111;
-      --text-muted: #666666;
-      --border: #e0e0e0;
-      --accent: #e50010; /* Sale Red */
-      --font-body: 'Inter', sans-serif;
-      --font-editorial: 'Cinzel', serif;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: var(--font-body);
-      background-color: var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
-      line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
-    }
-    a { color: inherit; text-decoration: none; cursor: pointer; }
-    ul { list-style: none; }
-    button { font-family: inherit; cursor: pointer; border: none; background: none; }
-    input { font-family: inherit; }
-
-    /* ============================================================
-       2. GLOBAL LAYOUT & HEADER
-       ============================================================ */
-    .top-banner {
-      background: var(--text);
-      color: var(--bg);
-      text-align: center;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 10px;
-    }
-
-    .header {
-      position: sticky;
-      top: 0;
-      background: rgba(250, 249, 248, 0.95);
-      backdrop-filter: blur(10px);
-      z-index: 1000;
-      border-bottom: 1px solid var(--border);
-    }
-    .header-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 2rem;
-      height: 64px;
-      max-width: 1600px;
-      margin: 0 auto;
-    }
-
-    .nav-links { display: flex; gap: 1.8rem; }
-    .nav-links a {
-      font-size: 13px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      padding: 22px 0;
-      position: relative;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover, .nav-links a.active { color: var(--text-muted); }
-    .nav-links a::after {
-      content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px;
-      background: var(--text); transform: scaleX(0); transition: transform 0.25s ease;
-    }
-    .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
-
-    .logo {
-      font-family: var(--font-editorial);
-      font-size: 24px;
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      text-transform: lowercase;
-      cursor: pointer;
-    }
-
-    .header-actions { display: flex; align-items: center; gap: 1.5rem; }
-    
-    .search-bar {
-      display: flex; align-items: center; background: var(--bg);
-      border: 1px solid var(--border); padding: 6px 12px; width: 220px;
-    }
-    .search-bar input { border: none; background: transparent; outline: none; font-size: 13px; width: 100%; }
-    .search-bar svg { width: 16px; height: 16px; margin-right: 8px; fill: var(--text); }
-
-    .icon-group { display: flex; gap: 1.2rem; align-items: center; }
-    .icon-group button {
-      font-size: 12px; font-weight: 500; text-transform: uppercase;
-      display: flex; align-items: center; gap: 6px; color: var(--text);
-      transition: opacity 0.2s;
-    }
-    .icon-group button:hover { opacity: 0.6; }
-    .icon-group svg { width: 18px; height: 18px; fill: none; stroke: var(--text); stroke-width: 1.5; }
-
-    /* ============================================================
-       3. PAGE ROUTING & ANIMATIONS
-       ============================================================ */
-    .page-view {
-      display: none; /* Hidden by default, toggled by JS */
-      opacity: 0;
-      min-height: 80vh;
-      animation: fadeIn 0.5s forwards;
-    }
-    .page-view.active { display: block; }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ============================================================
-       4. HERO SECTION
-       ============================================================ */
-    .hero {
-      height: 80vh; min-height: 500px;
-      display: flex; align-items: center; justify-content: center;
-      text-align: center; padding: 0 2rem;
-      background: linear-gradient(135deg, #f4efe9 0%, #e8e2d9 100%);
-    }
-    .hero-content { max-width: 800px; }
-    .hero-title {
-      font-family: var(--font-editorial);
-      font-size: clamp(3rem, 6vw, 5.5rem);
-      font-weight: 600; line-height: 1.1; margin-bottom: 1.5rem;
-    }
-    .hero-sub {
-      font-size: 1.1rem; color: var(--text-muted);
-      margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto;
-    }
-    .btn-primary {
-      display: inline-block; background: var(--text); color: var(--bg);
-      padding: 16px 48px; font-size: 14px; font-weight: 600;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      transition: background 0.3s, transform 0.3s;
-    }
-    .btn-primary:hover { background: #333; transform: translateY(-2px); }
-
-    /* ============================================================
-       5. PRODUCT GRID & CARDS
-       ============================================================ */
-    .section-container { padding: 4rem 2rem; max-width: 1600px; margin: 0 auto; }
-    .section-header {
-      display: flex; justify-content: space-between; align-items: baseline;
-      margin-bottom: 2rem;
-    }
-    .section-header h2 { font-family: var(--font-editorial); font-size: 2rem; text-transform: uppercase; }
-    
-    .product-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 2rem;
-    }
-    .product-card {
-      background: var(--surface); border: 1px solid var(--border);
-      display: flex; flex-direction: column; transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .product-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
-    
-    .product-image {
-      aspect-ratio: 3/4; background: #f0f0f0;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--text-muted); font-size: 12px; position: relative;
-    }
-    .badge {
-      position: absolute; top: 12px; left: 12px;
-      background: var(--accent); color: #fff;
-      font-size: 10px; font-weight: 700; padding: 4px 8px; text-transform: uppercase;
-    }
-    .badge.new { background: var(--text); }
-
-    .product-info { padding: 1rem; display: flex; flex-direction: column; gap: 6px; }
-    .product-title { font-size: 14px; font-weight: 500; }
-    .product-price { font-size: 14px; font-weight: 600; display: flex; gap: 8px; align-items: center; }
-    .product-price del { color: var(--text-muted); font-weight: 400; font-size: 13px; }
-    .product-price span.sale { color: var(--accent); }
-    .product-variants { font-size: 12px; color: var(--text-muted); }
-
-    /* ============================================================
-       6. UTILITY PAGES (Sign In, Favourites, Bag, Home)
-       ============================================================ */
-    .utility-page {
-      max-width: 600px; margin: 6rem auto; padding: 0 2rem;
-    }
-    .utility-page h1 {
-      font-family: var(--font-editorial); font-size: 2.5rem;
-      margin-bottom: 2rem; text-align: center;
-    }
-    .form-group { margin-bottom: 1.5rem; }
-    .form-group label { display: block; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
-    .form-group input {
-      width: 100%; padding: 14px; border: 1px solid var(--border);
-      background: var(--bg); font-size: 14px; outline: none; transition: border 0.2s;
-    }
-    .form-group input:focus { border-color: var(--text); }
-
-    /* ============================================================
-       7. FOOTER
-       ============================================================ */
-    .footer {
-      background: var(--surface); border-top: 1px solid var(--border);
-      padding: 5rem 2rem 2rem 2rem; margin-top: 4rem;
-    }
-    .footer-grid {
-      max-width: 1600px; margin: 0 auto;
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
-    }
-    .footer-col h4 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.5rem; }
-    .footer-col ul { display: flex; flex-direction: column; gap: 0.8rem; }
-    .footer-col a { font-size: 13px; color: var(--text-muted); transition: color 0.2s; cursor: pointer; }
-    .footer-col a:hover { color: var(--text); }
-
-    .footer-bottom {
-      max-width: 1600px; margin: 4rem auto 0 auto; padding-top: 2rem;
-      border-top: 1px solid var(--border); display: flex;
-      justify-content: space-between; font-size: 12px; color: var(--text-muted);
-    }
-
-    /* ============================================================
-       8. RESPONSIVE
-       ============================================================ */
-    @media (max-width: 900px) {
-      .nav-links { display: none; }
-      .search-bar { display: none; }
-      .icon-group span { display: none; }
-      .footer-grid { grid-template-columns: repeat(2, 1fr); }
-      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
-    }
-    @media (max-width: 600px) {
-      .product-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-      .header-inner { padding: 0 1rem; }
-      .hero-title { font-size: 2.5rem; }
-    }
-  </style>
+  
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
@@ -272,6 +27,7 @@
         <a onclick="navigateTo('divided')" id="nav-divided">Divided</a>
         <a onclick="navigateTo('kids')" id="nav-kids">Kids</a>
         <a onclick="navigateTo('home')" id="nav-home">adsynthmedia HOME</a>
+        <a onclick="navigateTo('watches')" id="nav-watches">Watches</a>
       </nav>
 
       <div class="logo" onclick="navigateTo('main')">adsynthmedia</div>
@@ -282,40 +38,57 @@
           <input type="text" placeholder="Search" />
         </div>
         <div class="icon-group">
-          <button onclick="navigateTo('signin')"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg><span>Sign In</span></button>
+          <button onclick="navigateTo('signin')" id="auth-btn"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg><span id="auth-text">Sign In</span></button>
           <button onclick="navigateTo('favourites')"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><span>Favourites</span></button>
-          <button onclick="navigateTo('bag')"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg><span>Bag</span></button>
+          <button onclick="navigateTo('bag')">
+            <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            <span>Bag</span>
+            <span class="cart-count" id="cart-count">0</span>
+          </button>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- ============================================================
-       MAIN VIEWS (SPA Routing)
-       ============================================================ -->
+  <!-- MAIN VIEWS -->
   <main>
-    <!-- MAIN HOME VIEW -->
+    <!-- MAIN HOME -->
     <div id="view-main" class="page-view active">
       <section class="hero">
+        <video autoplay loop muted playsinline class="hero-video">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-clothes-hanging-on-a-rack-in-a-store-39812-large.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
         <div class="hero-content">
-          <h1 class="hero-title">The Autumn Edit</h1>
-          <p class="hero-sub">Fluid silhouettes. Synthesized digital textiles. Your new season wardrobe.</p>
-          <a href="#main-catalog" class="btn-primary">Shop Now</a>
+          <span class="hero-tagline reveal-text">adsynthmedia Presents</span>
+          <h1 class="hero-title reveal-text">The Autumn Edit</h1>
+          <p class="hero-sub reveal-text">Fluid silhouettes. Synthesized digital textiles. Your new season wardrobe.</p>
+          <button class="btn-primary reveal-text" onclick="navigateTo('ladies')">Shop Now</button>
         </div>
       </section>
 
-      <section class="section-container" id="main-catalog">
-        <div class="section-header">
-          <h2>Trending Now</h2>
-          <a>View All</a>
-        </div>
-        <div class="product-grid" id="trending-grid">
-          <!-- Populated by JS -->
-        </div>
+      <section class="section-container reveal-section">
+        <div class="section-header"><h2>The Edit</h2><a>View All</a></div>
+        <div class="product-grid" id="home-the-edit"></div>
+      </section>
+
+      <section class="section-container reveal-section" style="background: var(--surface);">
+        <div class="section-header"><h2>Autumn Essentials</h2><a>View All</a></div>
+        <div class="product-grid" id="home-autumn"></div>
+      </section>
+
+      <section class="section-container reveal-section">
+        <div class="section-header"><h2>Winter Layers</h2><a>View All</a></div>
+        <div class="product-grid" id="home-winter"></div>
+      </section>
+
+      <section class="section-container reveal-section">
+        <div class="section-header"><h2>Trending Now</h2></div>
+        <div class="product-grid" id="main-grid"></div>
       </section>
     </div>
 
-    <!-- CATEGORY VIEWS (Ladies, Men, etc.) -->
+    <!-- CATEGORY VIEWS -->
     <div id="view-ladies" class="page-view">
       <section class="section-container">
         <div class="section-header"><h2>Ladies Collection</h2></div>
@@ -340,35 +113,47 @@
         <div class="product-grid" id="kids-grid"></div>
       </section>
     </div>
-
-    <!-- PREMIUM HOME VIEW (adsynthmedia HOME) -->
     <div id="view-home" class="page-view">
-      <section class="hero" style="height: 50vh; min-height: 400px; background: linear-gradient(135deg, #e8e2d9 0%, #dcd4c8 100%);">
-        <div class="hero-content">
-          <h1 class="hero-title" style="font-size: 4rem;">adsynthmedia HOME</h1>
-          <p class="hero-sub">Elevate your living space with curated, premium essentials.</p>
-        </div>
-      </section>
       <section class="section-container">
-        <div class="section-header"><h2>Home Essentials</h2></div>
+        <div class="section-header"><h2>adsynthmedia HOME</h2></div>
         <div class="product-grid" id="home-grid"></div>
       </section>
+    </div>
+    <div id="view-watches" class="page-view">
+      <section class="section-container">
+        <div class="section-header"><h2>Watches & Accessories</h2></div>
+        <div class="product-grid" id="watches-grid"></div>
+      </section>
+    </div>
+
+    <!-- PRODUCT DETAIL VIEW -->
+    <div id="view-product" class="page-view">
+      <div id="pdp-container"></div>
+    </div>
+
+    <!-- DYNAMIC INFO VIEW -->
+    <div id="view-info" class="page-view">
+      <div class="info-page">
+        <h1 id="info-title">Title</h1>
+        <div id="info-content" class="info-content"></div>
+      </div>
     </div>
 
     <!-- SIGN IN VIEW -->
     <div id="view-signin" class="page-view">
       <div class="utility-page">
-        <h1>Sign In</h1>
-        <form onsubmit="event.preventDefault(); alert('Signed In Successfully!'); navigateTo('main');">
-          <div class="form-group">
-            <label>Email Address</label>
-            <input type="email" required placeholder="name@example.com" />
+        <h1 id="signin-title">Sign In</h1>
+        <form id="signin-form" onsubmit="handleSignIn(event)">
+          <div class="form-group" id="name-group" style="display: none;">
+            <label>Full Name</label>
+            <input type="text" id="signin-name" placeholder="John Doe" />
           </div>
-          <div class="form-group">
-            <label>Password</label>
-            <input type="password" required placeholder="••••••••" />
-          </div>
-          <button type="submit" class="btn-primary" style="width: 100%;">Continue</button>
+          <div class="form-group"><label>Email</label><input type="email" id="signin-email" required placeholder="name@example.com" /></div>
+          <div class="form-group"><label>Password</label><input type="password" id="signin-password" required placeholder="••••••••" /></div>
+          <button type="submit" class="btn-primary" style="width: 100%;" id="signin-submit-btn">Continue</button>
+          <p style="text-align: center; margin-top: 1.5rem; font-size: 14px;">
+            <a onclick="toggleAuthMode()" style="text-decoration: underline; cursor: pointer;" id="auth-toggle-text">Don't have an account? Sign Up</a>
+          </p>
         </form>
       </div>
     </div>
@@ -377,10 +162,7 @@
     <div id="view-favourites" class="page-view">
       <div class="utility-page">
         <h1>Your Favourites</h1>
-        <p style="text-align: center; color: var(--text-muted);">You have 0 items in your favourites list.</p>
-        <div style="text-align: center; margin-top: 2rem;">
-          <button class="btn-primary" onclick="navigateTo('main')">Start Shopping</button>
-        </div>
+        <div class="product-grid" id="fav-grid"></div>
       </div>
     </div>
 
@@ -388,16 +170,45 @@
     <div id="view-bag" class="page-view">
       <div class="utility-page">
         <h1>Shopping Bag</h1>
-        <p style="text-align: center; color: var(--text-muted);">Your bag is currently empty.</p>
-        <div style="text-align: center; margin-top: 2rem;">
-          <button class="btn-primary" onclick="navigateTo('main')">Continue Shopping</button>
+        <div id="cart-items-container"></div>
+        <div class="cart-summary" id="cart-summary" style="display:none;">
+          <div class="cart-total" id="cart-total">₹ 0</div>
+          <button class="btn-primary" onclick="alert('Proceeding to Checkout!')">Checkout</button>
         </div>
       </div>
     </div>
   </main>
 
-  <!-- FOOTER -->
+  <!-- SIZE CHART MODAL -->
+  <div class="modal-overlay" id="size-modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="toggleSizeChart()">&times;</span>
+      <h3>Size Guide</h3>
+      <p style="color:var(--text-muted); font-size:14px; margin-bottom:1rem;">Measurements in inches. Fits true to size.</p>
+      <table class="size-table">
+        <tr><th>Size</th><th>Chest</th><th>Waist</th><th>Hip</th></tr>
+        <tr><td>XS</td><td>32-34</td><td>24-26</td><td>34-36</td></tr>
+        <tr><td>S</td><td>34-36</td><td>26-28</td><td>36-38</td></tr>
+        <tr><td>M</td><td>36-38</td><td>28-30</td><td>38-40</td></tr>
+        <tr><td>L</td><td>38-40</td><td>30-32</td><td>40-42</td></tr>
+        <tr><td>XL</td><td>40-42</td><td>32-34</td><td>42-44</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- EXPANDED FOOTER -->
   <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-newsletter">
+        <h4>Subscribe to our Newsletter</h4>
+        <p>Get 10% off your first order. Plus early access to new collections.</p>
+        <div class="newsletter-form">
+          <input type="email" placeholder="Enter your email" />
+          <button onclick="alert('Subscribed successfully!')">Subscribe</button>
+        </div>
+      </div>
+    </div>
+    
     <div class="footer-grid">
       <div class="footer-col">
         <h4>Shop</h4>
@@ -407,32 +218,33 @@
           <li><a onclick="navigateTo('divided')">Divided</a></li>
           <li><a onclick="navigateTo('kids')">Kids</a></li>
           <li><a onclick="navigateTo('home')">adsynthmedia HOME</a></li>
+          <li><a onclick="navigateTo('watches')">Watches & Accessories</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Customer Service</h4>
         <ul>
           <li><a href="tel:+911234567890">Contact Us: +91 123 456 7890</a></li>
-          <li><a href="#">Returns & Exchanges</a></li>
-          <li><a href="#">Shipping Info</a></li>
-          <li><a href="#">Size Guide</a></li>
-          <li><a href="#">FAQ</a></li>
+          <li><a onclick="openInfo('returns')">Returns & Exchanges</a></li>
+          <li><a onclick="openInfo('shipping')">Shipping Info</a></li>
+          <li><a onclick="toggleSizeChart()">Size Guide</a></li>
+          <li><a onclick="openInfo('faq')">FAQ</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>About adsynthmedia</h4>
         <ul>
-          <li><a href="#">Our Story</a></li>
-          <li><a href="#">Sustainability</a></li>
-          <li><a href="#">Careers</a></li>
-          <li><a href="#">Press</a></li>
-          <li><a href="#">Investor Relations</a></li>
+          <li><a onclick="openInfo('story')">Our Story</a></li>
+          <li><a onclick="openInfo('sustainability')">Sustainability</a></li>
+          <li><a onclick="openInfo('careers')">Careers</a></li>
+          <li><a onclick="openInfo('press')">Press</a></li>
+          <li><a onclick="openInfo('investors')">Investor Relations</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Follow Us</h4>
         <ul>
-          <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+          <li><a href="https://instagram.com/your_handle" target="_blank">Instagram (@adsynthmedia)</a></li>
           <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
           <li><a href="https://twitter.com" target="_blank">Twitter</a></li>
           <li><a href="https://pinterest.com" target="_blank">Pinterest</a></li>
@@ -441,96 +253,14 @@
     </div>
     <div class="footer-bottom">
       <span>© 2026 adsynthmedia India. All rights reserved.</span>
-      <span>Privacy Policy | Terms & Conditions | Cookie Settings</span>
+      <span>
+        <a onclick="openInfo('privacy')" style="text-decoration: underline; cursor: pointer;">Privacy Policy</a> | 
+        <a onclick="openInfo('terms')" style="text-decoration: underline; cursor: pointer;">Terms & Conditions</a> | 
+        <a onclick="openInfo('cookies')" style="text-decoration: underline; cursor: pointer;">Cookie Settings</a>
+      </span>
     </div>
   </footer>
 
-  <!-- ============================================================
-       APPLICATION LOGIC
-       ============================================================ -->
-  <script>
-    // --- Mock Data for Products ---
-    const products = [
-      { title: "Fluid Drape Dress", price: "1,499", variants: "3 colours", badge: "New Arrivals", badgeType: "new" },
-      { title: "Structured Blazer", price: "1,999", original: "2,999", variants: "2 colours", badge: "Sale", badgeType: "sale" },
-      { title: "Knit Polo Shirt", price: "999", variants: "4 colours" },
-      { title: "Wide-Leg Jeans", price: "1,799", variants: "1 colour" },
-      { title: "Suede Ankle Boots", price: "2,999", original: "3,499", variants: "2 colours", badge: "Sale", badgeType: "sale" },
-      { title: "Cotton Overshirt", price: "899", original: "1,499", variants: "3 colours", badge: "Sale", badgeType: "sale" },
-      { title: "Leather Crossbody Bag", price: "2,299", variants: "1 colour" },
-      { title: "Rib-Knit Cardigan", price: "1,299", variants: "5 colours" }
-    ];
-
-    const homeProducts = [
-      { title: "Linen Bedding Set", price: "4,999", variants: "2 colours", badge: "Premium", badgeType: "new" },
-      { title: "Ceramic Vase", price: "1,299", variants: "1 colour" },
-      { title: "Scented Candle", price: "899", variants: "3 scents" },
-      { title: "Wool Throw Blanket", price: "2,499", variants: "2 colours" }
-    ];
-
-    // --- Helper to create product HTML ---
-    function createProductCard(p) {
-      return `
-        <div class="product-card">
-          <div class="product-image">
-            ${p.badge ? `<div class="badge ${p.badgeType === 'new' ? 'new' : ''}">${p.badge}</div>` : ''}
-            <span>Model Image</span>
-            <svg style="position:absolute; top:12px; right:12px; width:20px; height:20px; fill:none; stroke:#111; cursor:pointer;" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-          </div>
-          <div class="product-info">
-            <span class="product-title">${p.title}</span>
-            <span class="product-price">
-              ${p.original ? `<del>₹ ${p.original}</del> <span class="sale">₹ ${p.price}</span>` : `₹ ${p.price}`}
-            </span>
-            <span class="product-variants">${p.variants}</span>
-          </div>
-        </div>
-      `;
-    }
-
-    // --- Populate Grids ---
-    document.getElementById('trending-grid').innerHTML = products.map(createProductCard).join('');
-    document.getElementById('ladies-grid').innerHTML = products.slice(0, 4).map(createProductCard).join('');
-    document.getElementById('men-grid').innerHTML = products.slice(2, 6).map(createProductCard).join('');
-    document.getElementById('divided-grid').innerHTML = products.slice(4, 8).map(createProductCard).join('');
-    document.getElementById('kids-grid').innerHTML = products.slice(0, 3).map(createProductCard).join('');
-    document.getElementById('home-grid').innerHTML = homeProducts.map(createProductCard).join('');
-
-    // --- SPA Navigation Logic ---
-    function navigateTo(pageId) {
-      // Hide all pages
-      document.querySelectorAll('.page-view').forEach(page => {
-        page.classList.remove('active');
-      });
-
-      // Show target page
-      const target = document.getElementById(`view-${pageId}`);
-      if (target) {
-        target.classList.add('active');
-        window.scrollTo({ top: 0, behavior: 'instant' });
-      }
-
-      // Update active nav state
-      document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
-      const navLink = document.getElementById(`nav-${pageId}`);
-      if (navLink) navLink.classList.add('active');
-    }
-
-    // Framer-style initial load animation for text and cards
-    document.addEventListener("DOMContentLoaded", () => {
-      // Simple CSS-based fade up animations for hero elements
-      const heroElements = document.querySelectorAll('.hero-content > *');
-      heroElements.forEach((el, index) => {
-        el.style.opacity = 0;
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = `opacity 0.8s ease ${index * 0.2}s, transform 0.8s ease ${index * 0.2}s`;
-        
-        setTimeout(() => {
-          el.style.opacity = 1;
-          el.style.transform = 'translateY(0)';
-        }, 100);
-      });
-    });
-  </script>
+  <script src="js/script.js"></script>
 </body>
 </html>
