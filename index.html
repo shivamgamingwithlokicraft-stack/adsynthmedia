@@ -2,93 +2,65 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>adsynthmedia | The Future of Digital Apparel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>adsynthmedia | Premium Fashion & Home</title>
 
-  <!-- Google Fonts: Inter for UI, Cinzel for Editorial Luxury -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
     /* ============================================================
-       1. DESIGN SYSTEM & GLOBAL RESET
+       1. CSS VARIABLES & RESET
        ============================================================ */
     :root {
       --bg: #faf9f8;
+      --surface: #ffffff;
       --text: #111111;
-      --text-light: #555555;
-      --text-grey: #737373;
+      --text-muted: #666666;
       --border: #e0e0e0;
-      --sale-red: #e50010;
-      --font-body: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --accent: #e50010; /* Sale Red */
+      --font-body: 'Inter', sans-serif;
       --font-editorial: 'Cinzel', serif;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-    
     body {
       font-family: var(--font-body);
       background-color: var(--bg);
       color: var(--text);
       overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
       line-height: 1.5;
-      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
     }
-
-    a { color: inherit; text-decoration: none; }
+    a { color: inherit; text-decoration: none; cursor: pointer; }
     ul { list-style: none; }
     button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    input { font-family: inherit; }
 
     /* ============================================================
-       2. FIXED 3D VIEWPORT
+       2. GLOBAL LAYOUT & HEADER
        ============================================================ */
-    #adsynth-3d-viewport {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      height: 100dvh;
-      z-index: 0;
-      pointer-events: none;
-      outline: none;
-      display: block;
-    }
-
-    /* ============================================================
-       3. UI LAYER & HEADER
-       ============================================================ */
-    .ui-layer { position: relative; z-index: 10; pointer-events: none; }
-    .ui-layer a, .ui-layer button, .ui-layer .cta { pointer-events: auto; }
-
-    /* Top Announcement Bar */
     .top-banner {
-      background-color: var(--text);
+      background: var(--text);
       color: var(--bg);
       text-align: center;
       font-size: 11px;
       font-weight: 500;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      padding: 10px 1rem;
-      position: relative;
-      z-index: 1001;
+      padding: 10px;
     }
 
-    /* Sticky Header */
     .header {
       position: sticky;
       top: 0;
-      background-color: rgba(250, 249, 248, 0.95);
-      backdrop-filter: blur(12px);
+      background: rgba(250, 249, 248, 0.95);
+      backdrop-filter: blur(10px);
       z-index: 1000;
       border-bottom: 1px solid var(--border);
-      transition: box-shadow 0.3s;
     }
-    .header.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
-
     .header-inner {
       display: flex;
       justify-content: space-between;
@@ -109,937 +81,456 @@
       position: relative;
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--text-grey); }
+    .nav-links a:hover, .nav-links a.active { color: var(--text-muted); }
     .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; width: 100%; height: 2px;
-      background-color: var(--text);
-      transform: scaleX(0);
-      transition: transform 0.25s ease;
+      content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px;
+      background: var(--text); transform: scaleX(0); transition: transform 0.25s ease;
     }
-    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
 
     .logo {
+      font-family: var(--font-editorial);
       font-size: 24px;
-      font-weight: 800;
+      font-weight: 700;
       letter-spacing: -0.04em;
-      color: var(--text);
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
       text-transform: lowercase;
+      cursor: pointer;
     }
 
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-    }
+    .header-actions { display: flex; align-items: center; gap: 1.5rem; }
+    
     .search-bar {
-      display: flex;
-      align-items: center;
-      background-color: var(--bg);
-      border: 1px solid var(--border);
-      padding: 8px 12px;
-      width: 220px;
+      display: flex; align-items: center; background: var(--bg);
+      border: 1px solid var(--border); padding: 6px 12px; width: 220px;
     }
-    .search-bar input {
-      border: none;
-      background: transparent;
-      outline: none;
-      font-family: inherit;
-      font-size: 13px;
-      width: 100%;
-      color: var(--text);
-    }
-    .search-bar input::placeholder { color: var(--text-grey); }
-    .search-bar svg { width: 16px; height: 16px; fill: var(--text); margin-right: 8px; }
+    .search-bar input { border: none; background: transparent; outline: none; font-size: 13px; width: 100%; }
+    .search-bar svg { width: 16px; height: 16px; margin-right: 8px; fill: var(--text); }
 
     .icon-group { display: flex; gap: 1.2rem; align-items: center; }
-    .icon-group a {
-      font-size: 12px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      display: flex;
-      align-items: center;
-      gap: 4px;
+    .icon-group button {
+      font-size: 12px; font-weight: 500; text-transform: uppercase;
+      display: flex; align-items: center; gap: 6px; color: var(--text);
+      transition: opacity 0.2s;
     }
-    .icon-group svg { width: 20px; height: 20px; fill: none; stroke: var(--text); stroke-width: 1.5; }
+    .icon-group button:hover { opacity: 0.6; }
+    .icon-group svg { width: 18px; height: 18px; fill: none; stroke: var(--text); stroke-width: 1.5; }
+
+    /* ============================================================
+       3. PAGE ROUTING & ANIMATIONS
+       ============================================================ */
+    .page-view {
+      display: none; /* Hidden by default, toggled by JS */
+      opacity: 0;
+      min-height: 80vh;
+      animation: fadeIn 0.5s forwards;
+    }
+    .page-view.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
     /* ============================================================
        4. HERO SECTION
        ============================================================ */
     .hero {
-      position: relative;
-      height: 90vh;
-      min-height: 600px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 0 2rem;
-      background: transparent;
+      height: 80vh; min-height: 500px;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 0 2rem;
+      background: linear-gradient(135deg, #f4efe9 0%, #e8e2d9 100%);
     }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 800px;
-    }
-
+    .hero-content { max-width: 800px; }
     .hero-title {
       font-family: var(--font-editorial);
-      font-size: clamp(3rem, 8vw, 6.5rem);
-      font-weight: 600;
-      line-height: 1.05;
-      letter-spacing: -0.02em;
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-      color: var(--text);
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 600; line-height: 1.1; margin-bottom: 1.5rem;
     }
-
     .hero-sub {
-      font-size: 1.15rem;
-      font-weight: 400;
-      color: var(--text-light);
-      margin-bottom: 3rem;
-      line-height: 1.6;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+      font-size: 1.1rem; color: var(--text-muted);
+      margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto;
     }
-
-    .cta {
-      display: inline-block;
-      background-color: var(--text);
-      color: var(--bg);
-      padding: 16px 48px;
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      transition: background-color 0.2s, transform 0.2s;
+    .btn-primary {
+      display: inline-block; background: var(--text); color: var(--bg);
+      padding: 16px 48px; font-size: 14px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      transition: background 0.3s, transform 0.3s;
     }
-    .cta:hover {
-      background-color: #333;
-      transform: translateY(-2px);
-    }
+    .btn-primary:hover { background: #333; transform: translateY(-2px); }
 
     /* ============================================================
-       5. TRENDING SECTION
+       5. PRODUCT GRID & CARDS
        ============================================================ */
-    .trending-section {
-      padding: 6rem 0;
-      background: transparent;
-      position: relative;
-      z-index: 10;
-    }
-
-    .section-heading {
-      font-family: var(--font-editorial);
-      font-size: 2rem;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      margin-bottom: 2rem;
-      padding: 0 2rem;
-      max-width: 1600px;
-      margin-left: auto;
-      margin-right: auto;
-      text-transform: uppercase;
-    }
-
-    .trending-scroll {
-      display: flex;
-      gap: 1rem;
-      overflow-x: auto;
-      padding: 0 2rem 1rem 2rem;
-      scrollbar-width: none;
-    }
-    .trending-scroll::-webkit-scrollbar { display: none; }
-
-    .trending-card {
-      flex: 0 0 240px;
-      height: 320px;
-      background-color: rgba(255,255,255,0.8);
-      backdrop-filter: blur(8px);
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text);
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
-    .trending-card:hover { background-color: #fff; }
-
-    /* ============================================================
-       6. PRODUCT CATALOG GRID
-       ============================================================ */
-    .catalog-section {
-      padding: 4rem 2rem 8rem 2rem;
-      max-width: 1600px;
-      margin: 0 auto;
-      background: transparent;
-      position: relative;
-      z-index: 10;
-    }
-
-    .catalog-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
+    .section-container { padding: 4rem 2rem; max-width: 1600px; margin: 0 auto; }
+    .section-header {
+      display: flex; justify-content: space-between; align-items: baseline;
       margin-bottom: 2rem;
     }
-    .catalog-header h2 {
-      font-family: var(--font-editorial);
-      font-size: 2rem;
-      font-weight: 600;
-      text-transform: uppercase;
-    }
-    .catalog-header a {
-      font-size: 14px;
-      font-weight: 500;
-      text-decoration: underline;
-      text-underline-offset: 4px;
-    }
-
+    .section-header h2 { font-family: var(--font-editorial); font-size: 2rem; text-transform: uppercase; }
+    
     .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 2rem;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 2rem;
     }
-
     .product-card {
-      display: flex;
-      flex-direction: column;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: var(--surface); border: 1px solid var(--border);
+      display: flex; flex-direction: column; transition: transform 0.3s, box-shadow 0.3s;
     }
-    .product-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    }
-
+    .product-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
+    
     .product-image {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 3/4;
-      background-color: #f0f0f0;
-      background: linear-gradient(180deg, #f9f9f9 0%, #ececec 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-grey);
-      font-size: 12px;
-      font-weight: 500;
-      text-transform: uppercase;
+      aspect-ratio: 3/4; background: #f0f0f0;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-muted); font-size: 12px; position: relative;
     }
+    .badge {
+      position: absolute; top: 12px; left: 12px;
+      background: var(--accent); color: #fff;
+      font-size: 10px; font-weight: 700; padding: 4px 8px; text-transform: uppercase;
+    }
+    .badge.new { background: var(--text); }
 
-    .product-badge {
-      position: absolute;
-      top: 12px; left: 12px;
-      background-color: var(--sale-red);
-      color: #fff;
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
-      padding: 4px 8px;
-      letter-spacing: 0.05em;
-      z-index: 2;
-    }
-    .product-badge.new { background-color: var(--text); }
+    .product-info { padding: 1rem; display: flex; flex-direction: column; gap: 6px; }
+    .product-title { font-size: 14px; font-weight: 500; }
+    .product-price { font-size: 14px; font-weight: 600; display: flex; gap: 8px; align-items: center; }
+    .product-price del { color: var(--text-muted); font-weight: 400; font-size: 13px; }
+    .product-price span.sale { color: var(--accent); }
+    .product-variants { font-size: 12px; color: var(--text-muted); }
 
-    .fav-icon {
-      position: absolute;
-      top: 12px; right: 12px;
-      width: 24px; height: 24px;
-      z-index: 2;
-      fill: none;
-      stroke: var(--text);
-      stroke-width: 1.5;
-      transition: stroke 0.2s, fill 0.2s;
-      cursor: pointer;
+    /* ============================================================
+       6. UTILITY PAGES (Sign In, Favourites, Bag, Home)
+       ============================================================ */
+    .utility-page {
+      max-width: 600px; margin: 6rem auto; padding: 0 2rem;
     }
-    .product-card:hover .fav-icon { stroke: var(--sale-red); fill: var(--sale-red); }
-
-    .product-info {
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
+    .utility-page h1 {
+      font-family: var(--font-editorial); font-size: 2.5rem;
+      margin-bottom: 2rem; text-align: center;
     }
-    .product-title {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text);
+    .form-group { margin-bottom: 1.5rem; }
+    .form-group label { display: block; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+    .form-group input {
+      width: 100%; padding: 14px; border: 1px solid var(--border);
+      background: var(--bg); font-size: 14px; outline: none; transition: border 0.2s;
     }
-    .product-price {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .product-price del {
-      color: var(--text-grey);
-      font-weight: 400;
-      font-size: 13px;
-    }
-    .product-price .sale-price {
-      color: var(--sale-red);
-    }
-    .product-variants {
-      font-size: 12px;
-      color: var(--text-grey);
-    }
+    .form-group input:focus { border-color: var(--text); }
 
     /* ============================================================
        7. FOOTER
        ============================================================ */
     .footer {
-      background-color: var(--bg);
-      padding: 5rem 2rem 2rem 2rem;
-      border-top: 1px solid var(--border);
-      position: relative;
-      z-index: 10;
+      background: var(--surface); border-top: 1px solid var(--border);
+      padding: 5rem 2rem 2rem 2rem; margin-top: 4rem;
     }
-    .footer-inner {
-      max-width: 1600px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2rem;
+    .footer-grid {
+      max-width: 1600px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
     }
-    .footer-col h4 {
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 1.5rem;
-      color: var(--text);
-    }
+    .footer-col h4 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.5rem; }
     .footer-col ul { display: flex; flex-direction: column; gap: 0.8rem; }
-    .footer-col a {
-      font-size: 13px;
-      color: var(--text-grey);
-      transition: color 0.2s;
-    }
+    .footer-col a { font-size: 13px; color: var(--text-muted); transition: color 0.2s; cursor: pointer; }
     .footer-col a:hover { color: var(--text); }
 
     .footer-bottom {
-      max-width: 1600px;
-      margin: 4rem auto 0 auto;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 12px;
-      color: var(--text-grey);
+      max-width: 1600px; margin: 4rem auto 0 auto; padding-top: 2rem;
+      border-top: 1px solid var(--border); display: flex;
+      justify-content: space-between; font-size: 12px; color: var(--text-muted);
     }
 
     /* ============================================================
-       8. RESPONSIVE MEDIA QUERIES
+       8. RESPONSIVE
        ============================================================ */
-    @media (max-width: 1024px) {
-      .product-grid { grid-template-columns: repeat(3, 1fr); }
-      .search-bar { width: 180px; }
-    }
-
-    @media (max-width: 768px) {
-      .header-inner { padding: 0 1rem; height: 56px; }
+    @media (max-width: 900px) {
       .nav-links { display: none; }
-      .logo { font-size: 20px; }
       .search-bar { display: none; }
       .icon-group span { display: none; }
-      
-      .hero-title { font-size: 3rem; }
-      .hero-sub { font-size: 1rem; }
-      .product-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-      
-      .footer-inner { grid-template-columns: repeat(2, 1fr); gap: 3rem; }
+      .footer-grid { grid-template-columns: repeat(2, 1fr); }
       .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
     }
-
-    @media (max-width: 480px) {
-      .product-grid { gap: 0.8rem; }
-      .product-info { padding: 0.8rem; }
-      .product-title { font-size: 12px; }
-      .product-price { font-size: 12px; }
-      .section-heading { font-size: 1.5rem; padding: 0 1rem; }
-      .catalog-section { padding: 2rem 1rem 4rem 1rem; }
+    @media (max-width: 600px) {
+      .product-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+      .header-inner { padding: 0 1rem; }
+      .hero-title { font-size: 2.5rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- FIXED 3D VIEWPORT -->
-  <canvas id="adsynth-3d-viewport"></canvas>
+  <!-- TOP BANNER -->
+  <div class="top-banner">
+    Free shipping on orders over ₹2,999 | Join adsynthmedia Cyber Membership
+  </div>
 
-  <!-- UI LAYER -->
-  <div class="ui-layer">
-    
-    <!-- ANNOUNCEMENT BAR -->
-    <div class="top-banner">
-      Free shipping on orders over ₹2,999 | Join adsynthmedia Cyber Membership
-    </div>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <nav class="nav-links">
+        <a onclick="navigateTo('ladies')" id="nav-ladies">Ladies</a>
+        <a onclick="navigateTo('men')" id="nav-men">Men</a>
+        <a onclick="navigateTo('divided')" id="nav-divided">Divided</a>
+        <a onclick="navigateTo('kids')" id="nav-kids">Kids</a>
+        <a onclick="navigateTo('home')" id="nav-home">adsynthmedia HOME</a>
+      </nav>
 
-    <!-- HEADER -->
-    <header class="header" id="main-header">
-      <div class="header-inner">
-        
-        <!-- Navigation Links -->
-        <nav class="nav-links">
-          <a href="#">Ladies</a>
-          <a href="#">Men</a>
-          <a href="#">Divided</a>
-          <a href="#">Kids</a>
-          <a href="#">adsynthmedia HOME</a>
-        </nav>
+      <div class="logo" onclick="navigateTo('main')">adsynthmedia</div>
 
-        <!-- Brand Logo -->
-        <a href="#" class="logo">adsynthmedia</a>
-
-        <!-- Quick Actions -->
-        <div class="header-actions">
-          <div class="search-bar">
-            <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-            <input type="text" placeholder="Search" />
-          </div>
-          <div class="icon-group">
-            <a href="#"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg><span>Sign In</span></a>
-            <a href="#"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><span>Favourites</span></a>
-            <a href="#"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg><span>Shopping Bag</span></a>
-          </div>
+      <div class="header-actions">
+        <div class="search-bar">
+          <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          <input type="text" placeholder="Search" />
         </div>
-
+        <div class="icon-group">
+          <button onclick="navigateTo('signin')"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg><span>Sign In</span></button>
+          <button onclick="navigateTo('favourites')"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><span>Favourites</span></button>
+          <button onclick="navigateTo('bag')"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg><span>Bag</span></button>
+        </div>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <!-- MAIN CONTENT -->
-    <main>
-      
-      <!-- HERO SECTION -->
+  <!-- ============================================================
+       MAIN VIEWS (SPA Routing)
+       ============================================================ -->
+  <main>
+    <!-- MAIN HOME VIEW -->
+    <div id="view-main" class="page-view active">
       <section class="hero">
         <div class="hero-content">
           <h1 class="hero-title">The Autumn Edit</h1>
           <p class="hero-sub">Fluid silhouettes. Synthesized digital textiles. Your new season wardrobe.</p>
-          <a href="#catalog" class="cta hero-cta">Shop Now</a>
+          <a href="#main-catalog" class="btn-primary">Shop Now</a>
         </div>
       </section>
 
-      <!-- TRENDING QUICK-LINKS -->
-      <section class="trending-section">
-        <h2 class="section-heading">Trending Now</h2>
-        <div class="trending-scroll">
-          <div class="trending-card">Midi Skirts</div>
-          <div class="trending-card">Knitwear</div>
-          <div class="trending-card">Suede Jackets</div>
-          <div class="trending-card">Parachute Trousers</div>
-          <div class="trending-card">Denim</div>
-          <div class="trending-card">Blazers</div>
+      <section class="section-container" id="main-catalog">
+        <div class="section-header">
+          <h2>Trending Now</h2>
+          <a>View All</a>
+        </div>
+        <div class="product-grid" id="trending-grid">
+          <!-- Populated by JS -->
         </div>
       </section>
+    </div>
 
-      <!-- PRODUCT CATALOG GRID -->
-      <section class="catalog-section" id="catalog">
-        <div class="catalog-header">
-          <h2>New Arrivals</h2>
-          <a href="#">View All</a>
-        </div>
-        <div class="product-grid">
-          
-          <!-- Product 1 -->
-          <div class="product-card">
-            <div class="product-image">
-              <span>Model Image</span>
-              <div class="product-badge new">New Arrivals</div>
-              <svg class="fav-icon" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-            </div>
-            <div class="product-info">
-              <span class="product-title">Fluid Drape Dress</span>
-              <span class="product-price">₹ 1,499</span>
-              <span class="product-variants">3 colours</span>
-            </div>
-          </div>
+    <!-- CATEGORY VIEWS (Ladies, Men, etc.) -->
+    <div id="view-ladies" class="page-view">
+      <section class="section-container">
+        <div class="section-header"><h2>Ladies Collection</h2></div>
+        <div class="product-grid" id="ladies-grid"></div>
+      </section>
+    </div>
+    <div id="view-men" class="page-view">
+      <section class="section-container">
+        <div class="section-header"><h2>Men Collection</h2></div>
+        <div class="product-grid" id="men-grid"></div>
+      </section>
+    </div>
+    <div id="view-divided" class="page-view">
+      <section class="section-container">
+        <div class="section-header"><h2>Divided Collection</h2></div>
+        <div class="product-grid" id="divided-grid"></div>
+      </section>
+    </div>
+    <div id="view-kids" class="page-view">
+      <section class="section-container">
+        <div class="section-header"><h2>Kids Collection</h2></div>
+        <div class="product-grid" id="kids-grid"></div>
+      </section>
+    </div>
 
-          <!-- Product 2 -->
-          <div class="product-card">
-            <div class="product-image">
-              <span>Model Image</span>
-              <div class="product-badge">Sale</div>
-              <svg class="fav-icon" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-            </div>
-            <div class="product-info">
-              <span class="product-title">Structured Blazer</span>
-              <span class="product-price"><del>₹ 2,999</del> <span class="sale-price">₹ 1,999</span></span>
-              <span class="product-variants">2 colours</span>
-            </div>
-          </div>
-
-          <!-- Product 3 -->
-          <div class="product-card">
-            <div class="product-image">
-              <span>Model Image</span>
-              <svg class="fav-icon" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-            </div>
-            <div class="product-info">
-              <span class="product-title">Knit Polo Shirt</span>
-              <span class="product-price">₹ 999</span>
-              <span class="product-variants">4 colours</span>
-            </div>
-          </div>
-
-          <!-- Product 4 -->
-          <div class="product-card">
-            <div class="product-image">
-              <span>Model Image</span>
-              <svg class="fav-icon" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-            </div>
-            <div class="product-info">
-              <span class="product-title">Wide-Leg Jeans</span>
-              <span class="product-price">₹ 1,799</span>
-              <span class="product-variants">1 colour</span>
-            </div>
-          </div>
-
-          <!-- Product 5 -->
-          <div class="product-card">
-            <div class="product-image">
-              <span>Model Image</span>
-              <div class="product-badge">Sale</div>
-              <svg class="fav-icon" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-            </div>
-            <div class="product-info">
-              <span class="product-title">Suede Ankle Boots</span>
-              <span class="product-price"><del>₹ 3,499</del> <span class="sale-price">₹ 2,999</span></span>
-              <span class="product-variants">2 colours</span>
-            </div>
-          </div>
-
-          <!-- Product 6 -->
-          <div class="product-card">
-            <div class="product-image">
-              <span>Model Image</span>
-              <div class="product-badge">Sale</div>
-              <svg class="fav-icon" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-            </div>
-            <div class="product-info">
-              <span class="product-title">Cotton Overshirt</span>
-              <span class="product-price"><del>₹ 1,499</del> <span class="sale-price">₹ 899</span></span>
-              <span class="product-variants">3 colours</span>
-            </div>
-          </div>
-
-          <!-- Product 7 -->
-          <div class="product-card">
-            <div class="product-image">
-              <span>Model Image</span>
-              <svg class="fav-icon" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-            </div>
-            <div class="product-info">
-              <span class="product-title">Leather Crossbody Bag</span>
-              <span class="product-price">₹ 2,299</span>
-              <span class="product-variants">1 colour</span>
-            </div>
-          </div>
-
-          <!-- Product 8 -->
-          <div class="product-card">
-            <div class="product-image">
-              <span>Model Image</span>
-              <svg class="fav-icon" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-            </div>
-            <div class="product-info">
-              <span class="product-title">Rib-Knit Cardigan</span>
-              <span class="product-price">₹ 1,299</span>
-              <span class="product-variants">5 colours</span>
-            </div>
-          </div>
-
+    <!-- PREMIUM HOME VIEW (adsynthmedia HOME) -->
+    <div id="view-home" class="page-view">
+      <section class="hero" style="height: 50vh; min-height: 400px; background: linear-gradient(135deg, #e8e2d9 0%, #dcd4c8 100%);">
+        <div class="hero-content">
+          <h1 class="hero-title" style="font-size: 4rem;">adsynthmedia HOME</h1>
+          <p class="hero-sub">Elevate your living space with curated, premium essentials.</p>
         </div>
       </section>
+      <section class="section-container">
+        <div class="section-header"><h2>Home Essentials</h2></div>
+        <div class="product-grid" id="home-grid"></div>
+      </section>
+    </div>
 
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-      <div class="footer-inner">
-        
-        <div class="footer-col">
-          <h4>Shop</h4>
-          <ul>
-            <li><a href="#">Ladies</a></li>
-            <li><a href="#">Men</a></li>
-            <li><a href="#">Divided</a></li>
-            <li><a href="#">Kids</a></li>
-            <li><a href="#">adsynthmedia HOME</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Customer Service</h4>
-          <ul>
-            <li><a href="#">Contact Us</a></li>
-            <li><a href="#">Returns & Exchanges</a></li>
-            <li><a href="#">Shipping Info</a></li>
-            <li><a href="#">Size Guide</a></li>
-            <li><a href="#">FAQ</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>About adsynthmedia</h4>
-          <ul>
-            <li><a href="#">Our Story</a></li>
-            <li><a href="#">Sustainability</a></li>
-            <li><a href="#">Careers</a></li>
-            <li><a href="#">Press</a></li>
-            <li><a href="#">Investor Relations</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Follow Us</h4>
-          <ul>
-            <li><a href="#">Instagram</a></li>
-            <li><a href="#">Facebook</a></li>
-            <li><a href="#">Twitter</a></li>
-            <li><a href="#">Pinterest</a></li>
-          </ul>
-        </div>
-
+    <!-- SIGN IN VIEW -->
+    <div id="view-signin" class="page-view">
+      <div class="utility-page">
+        <h1>Sign In</h1>
+        <form onsubmit="event.preventDefault(); alert('Signed In Successfully!'); navigateTo('main');">
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" required placeholder="name@example.com" />
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" required placeholder="••••••••" />
+          </div>
+          <button type="submit" class="btn-primary" style="width: 100%;">Continue</button>
+        </form>
       </div>
+    </div>
 
-      <div class="footer-bottom">
-        <span>© 2026 adsynthmedia India. All rights reserved.</span>
-        <span>Privacy Policy | Terms & Conditions | Cookie Settings</span>
+    <!-- FAVOURITES VIEW -->
+    <div id="view-favourites" class="page-view">
+      <div class="utility-page">
+        <h1>Your Favourites</h1>
+        <p style="text-align: center; color: var(--text-muted);">You have 0 items in your favourites list.</p>
+        <div style="text-align: center; margin-top: 2rem;">
+          <button class="btn-primary" onclick="navigateTo('main')">Start Shopping</button>
+        </div>
       </div>
-    </footer>
+    </div>
 
-  </div>
+    <!-- SHOPPING BAG VIEW -->
+    <div id="view-bag" class="page-view">
+      <div class="utility-page">
+        <h1>Shopping Bag</h1>
+        <p style="text-align: center; color: var(--text-muted);">Your bag is currently empty.</p>
+        <div style="text-align: center; margin-top: 2rem;">
+          <button class="btn-primary" onclick="navigateTo('main')">Continue Shopping</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a onclick="navigateTo('ladies')">Ladies</a></li>
+          <li><a onclick="navigateTo('men')">Men</a></li>
+          <li><a onclick="navigateTo('divided')">Divided</a></li>
+          <li><a onclick="navigateTo('kids')">Kids</a></li>
+          <li><a onclick="navigateTo('home')">adsynthmedia HOME</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Customer Service</h4>
+        <ul>
+          <li><a href="tel:+911234567890">Contact Us: +91 123 456 7890</a></li>
+          <li><a href="#">Returns & Exchanges</a></li>
+          <li><a href="#">Shipping Info</a></li>
+          <li><a href="#">Size Guide</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>About adsynthmedia</h4>
+        <ul>
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">Sustainability</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Investor Relations</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Follow Us</h4>
+        <ul>
+          <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+          <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
+          <li><a href="https://twitter.com" target="_blank">Twitter</a></li>
+          <li><a href="https://pinterest.com" target="_blank">Pinterest</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 adsynthmedia India. All rights reserved.</span>
+      <span>Privacy Policy | Terms & Conditions | Cookie Settings</span>
+    </div>
+  </footer>
 
   <!-- ============================================================
-       EXTERNAL CDN LIBRARIES
-       ============================================================ -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/DRACOLoader.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
-  <!-- ============================================================
-       MAIN APPLICATION LOGIC
+       APPLICATION LOGIC
        ============================================================ -->
   <script>
-    (function() {
-      "use strict";
+    // --- Mock Data for Products ---
+    const products = [
+      { title: "Fluid Drape Dress", price: "1,499", variants: "3 colours", badge: "New Arrivals", badgeType: "new" },
+      { title: "Structured Blazer", price: "1,999", original: "2,999", variants: "2 colours", badge: "Sale", badgeType: "sale" },
+      { title: "Knit Polo Shirt", price: "999", variants: "4 colours" },
+      { title: "Wide-Leg Jeans", price: "1,799", variants: "1 colour" },
+      { title: "Suede Ankle Boots", price: "2,999", original: "3,499", variants: "2 colours", badge: "Sale", badgeType: "sale" },
+      { title: "Cotton Overshirt", price: "899", original: "1,499", variants: "3 colours", badge: "Sale", badgeType: "sale" },
+      { title: "Leather Crossbody Bag", price: "2,299", variants: "1 colour" },
+      { title: "Rib-Knit Cardigan", price: "1,299", variants: "5 colours" }
+    ];
 
-      // ==========================================================
-      // 1. THREE.JS SCENE SETUP
-      // ==========================================================
-      const canvas = document.getElementById('adsynth-3d-viewport');
-      const scene = new THREE.Scene();
-      scene.background = new THREE.Color(0xfaf9f8); // Matches CSS --bg
-      
-      // Subtle fog for depth
-      scene.fog = new THREE.FogExp2(0xfaf9f8, 0.015);
+    const homeProducts = [
+      { title: "Linen Bedding Set", price: "4,999", variants: "2 colours", badge: "Premium", badgeType: "new" },
+      { title: "Ceramic Vase", price: "1,299", variants: "1 colour" },
+      { title: "Scented Candle", price: "899", variants: "3 scents" },
+      { title: "Wool Throw Blanket", price: "2,499", variants: "2 colours" }
+    ];
 
-      const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-      camera.position.set(0, 0, 8);
-      camera.lookAt(0, 0, 0);
+    // --- Helper to create product HTML ---
+    function createProductCard(p) {
+      return `
+        <div class="product-card">
+          <div class="product-image">
+            ${p.badge ? `<div class="badge ${p.badgeType === 'new' ? 'new' : ''}">${p.badge}</div>` : ''}
+            <span>Model Image</span>
+            <svg style="position:absolute; top:12px; right:12px; width:20px; height:20px; fill:none; stroke:#111; cursor:pointer;" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          </div>
+          <div class="product-info">
+            <span class="product-title">${p.title}</span>
+            <span class="product-price">
+              ${p.original ? `<del>₹ ${p.original}</del> <span class="sale">₹ ${p.price}</span>` : `₹ ${p.price}`}
+            </span>
+            <span class="product-variants">${p.variants}</span>
+          </div>
+        </div>
+      `;
+    }
 
-      const renderer = new THREE.WebGLRenderer({
-        canvas: canvas,
-        antialias: true,
-        alpha: false,
-        powerPreference: 'high-performance'
-      });
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      renderer.shadowMap.enabled = true;
-      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-      renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.1;
+    // --- Populate Grids ---
+    document.getElementById('trending-grid').innerHTML = products.map(createProductCard).join('');
+    document.getElementById('ladies-grid').innerHTML = products.slice(0, 4).map(createProductCard).join('');
+    document.getElementById('men-grid').innerHTML = products.slice(2, 6).map(createProductCard).join('');
+    document.getElementById('divided-grid').innerHTML = products.slice(4, 8).map(createProductCard).join('');
+    document.getElementById('kids-grid').innerHTML = products.slice(0, 3).map(createProductCard).join('');
+    document.getElementById('home-grid').innerHTML = homeProducts.map(createProductCard).join('');
 
-      // ==========================================================
-      // 2. STUDIO LIGHTING
-      // ==========================================================
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-      scene.add(ambientLight);
-
-      const keyLight = new THREE.DirectionalLight(0xfff5e6, 2.0);
-      keyLight.position.set(10, 15, 10);
-      keyLight.castShadow = true;
-      keyLight.shadow.mapSize.width = 2048;
-      keyLight.shadow.mapSize.height = 2048;
-      keyLight.shadow.camera.near = 0.5;
-      keyLight.shadow.camera.far = 50;
-      keyLight.shadow.camera.left = -15;
-      keyLight.shadow.camera.right = 15;
-      keyLight.shadow.camera.top = 15;
-      keyLight.shadow.camera.bottom = -15;
-      keyLight.shadow.normalBias = 0.02;
-      scene.add(keyLight);
-
-      const fillLight = new THREE.DirectionalLight(0xdfe8ff, 0.8);
-      fillLight.position.set(-10, 5, 5);
-      scene.add(fillLight);
-
-      const rimLight = new THREE.DirectionalLight(0xffffff, 1.2);
-      rimLight.position.set(0, 5, -15);
-      scene.add(rimLight);
-
-      const pointLight = new THREE.PointLight(0xffffff, 0.8, 30);
-      pointLight.position.set(5, 5, 5);
-      scene.add(pointLight);
-
-      // ==========================================================
-      // 3. PROCEDURAL ZERO-GRAVITY FABRIC
-      // ==========================================================
-      const fabricGroup = new THREE.Group();
-      scene.add(fabricGroup);
-
-      // 80x80 grid gives a smooth silk effect while maintaining 60fps
-      const planeWidth = 8;
-      const planeHeight = 8;
-      const segments = 80;
-
-      const geometry = new THREE.PlaneGeometry(planeWidth, planeHeight, segments, segments);
-      
-      // High-end luxury material (satin/metallic finish)
-      const material = new THREE.MeshStandardMaterial({
-        color: 0xf4efe9,       // Warm off-white
-        metalness: 0.85,       // Highly reflective
-        roughness: 0.2,        // Smooth as satin
-        side: THREE.DoubleSide,
-        flatShading: false,
-        envMapIntensity: 1.0
+    // --- SPA Navigation Logic ---
+    function navigateTo(pageId) {
+      // Hide all pages
+      document.querySelectorAll('.page-view').forEach(page => {
+        page.classList.remove('active');
       });
 
-      const fabricMesh = new THREE.Mesh(geometry, material);
-      fabricMesh.castShadow = true;
-      fabricMesh.receiveShadow = true;
-      fabricMesh.rotation.x = -0.2; // Slight initial tilt
-      fabricGroup.add(fabricMesh);
-
-      // Slow constant Y-axis tumble
-      gsap.to(fabricGroup.rotation, {
-        y: Math.PI * 2,
-        duration: 30,
-        repeat: -1,
-        ease: "none"
-      });
-
-      // ==========================================================
-      // 4. GLTF LOADER (Robust Fallback Engine)
-      // ==========================================================
-      const loader = new THREE.GLTFLoader();
-      const dracoLoader = new THREE.DRACOLoader();
-      dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/');
-      loader.setDRACOLoader(dracoLoader);
-
-      loader.load(
-        'assets/adsynth_apparel.glb',
-        (gltf) => {
-          console.log('3D Asset loaded successfully.');
-          // Hide the procedural fallback
-          fabricGroup.visible = false;
-          gsap.killTweensOf(fabricGroup.rotation);
-          
-          gltf.scene.scale.set(1.5, 1.5, 1.5);
-          gltf.scene.traverse((child) => {
-            if (child.isMesh) {
-              child.castShadow = true;
-              child.receiveShadow = true;
-            }
-          });
-          scene.add(gltf.scene);
-        },
-        undefined,
-        (error) => {
-          console.log('GLB file not found or failed to load. Using procedural fabric fallback.');
-          // Fallback remains visible
-        }
-      );
-
-      // ==========================================================
-      // 5. PERLIN/NOISE MATH FUNCTIONS
-      // ==========================================================
-      // Hash function for pseudo-random value noise
-      function hash(x, y) {
-        const n = Math.sin(x * 127.1 + y * 311.7) * 43758.5453123;
-        return n - Math.floor(n);
+      // Show target page
+      const target = document.getElementById(`view-${pageId}`);
+      if (target) {
+        target.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'instant' });
       }
 
-      // Smooth interpolation
-      function smoothNoise(x, y) {
-        const ix = Math.floor(x);
-        const iy = Math.floor(y);
-        const fx = x - ix;
-        const fy = y - iy;
-        const ux = fx * fx * (3 - 2 * fx);
-        const uy = fy * fy * (3 - 2 * fy);
+      // Update active nav state
+      document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
+      const navLink = document.getElementById(`nav-${pageId}`);
+      if (navLink) navLink.classList.add('active');
+    }
+
+    // Framer-style initial load animation for text and cards
+    document.addEventListener("DOMContentLoaded", () => {
+      // Simple CSS-based fade up animations for hero elements
+      const heroElements = document.querySelectorAll('.hero-content > *');
+      heroElements.forEach((el, index) => {
+        el.style.opacity = 0;
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = `opacity 0.8s ease ${index * 0.2}s, transform 0.8s ease ${index * 0.2}s`;
         
-        const a = hash(ix, iy);
-        const b = hash(ix + 1, iy);
-        const c = hash(ix, iy + 1);
-        const d = hash(ix + 1, iy + 1);
-        
-        return a * (1 - ux) * (1 - uy) + b * ux * (1 - uy) + c * (1 - ux) * uy + d * ux * uy;
-      }
-
-      // Fractional Brownian Motion (layered noise)
-      function fbm(x, y, time) {
-        let value = 0;
-        let amplitude = 1;
-        let frequency = 1;
-        for (let i = 0; i < 3; i++) {
-          value += smoothNoise(x * frequency, y * frequency + time * 0.5) * amplitude;
-          amplitude *= 0.5;
-          frequency *= 2.0;
-        }
-        return value;
-      }
-
-      // ==========================================================
-      // 6. GSAP SCROLLTRIGGER CAMERA ORCHESTRATION
-      // ==========================================================
-      gsap.registerPlugin(ScrollTrigger);
-
-      const cameraState = {
-        x: 0, y: 0, z: 8
-      };
-
-      // Stage 1 -> Stage 2 (Trending): Zoom out to 45-degree isometric view
-      gsap.to(cameraState, {
-        x: 10, y: 5, z: 10,
-        scrollTrigger: {
-          trigger: ".trending-section",
-          start: "top bottom",
-          end: "top center",
-          scrub: 1.5,
-          invalidateOnRefresh: true
-        }
+        setTimeout(() => {
+          el.style.opacity = 1;
+          el.style.transform = 'translateY(0)';
+        }, 100);
       });
-
-      // Stage 2 -> Stage 3 (Catalog): Glide into macro texture pass
-      gsap.to(cameraState, {
-        x: 0, y: 0, z: 2,
-        scrollTrigger: {
-          trigger: ".catalog-section",
-          start: "top bottom",
-          end: "top center",
-          scrub: 1.5,
-          invalidateOnRefresh: true
-        }
-      });
-
-      // Product Card Staggered Animations
-      gsap.from(".product-card", {
-        opacity: 0,
-        y: 60,
-        stagger: 0.1,
-        duration: 1,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: ".catalog-section",
-          start: "top bottom",
-          toggleActions: "play none none reverse"
-        }
-      });
-
-      // Hero Text Fade In
-      gsap.from(".hero-title", { opacity: 0, y: 30, duration: 1, delay: 0.2 });
-      gsap.from(".hero-sub", { opacity: 0, y: 30, duration: 1, delay: 0.4 });
-      gsap.from(".hero-cta", { opacity: 0, y: 30, duration: 1, delay: 0.6 });
-
-      // ==========================================================
-      // 7. POINTER TRACKING
-      // ==========================================================
-      let mouseX = 0;
-      let mouseY = 0;
-
-      window.addEventListener('mousemove', (e) => {
-        mouseX = (e.clientX / window.innerWidth) * 2 - 1;
-        mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
-      });
-
-      // ==========================================================
-      // 8. ANIMATION LOOP
-      // ==========================================================
-      const clock = new THREE.Clock();
-      const positionAttribute = geometry.attributes.position;
-
-      function animate() {
-        requestAnimationFrame(animate);
-
-        const time = clock.getElapsedTime();
-
-        // Mouse-based rotation for the core 3D asset
-        if (fabricGroup.visible) {
-          fabricMesh.rotation.x = -0.2 + mouseY * 0.15;
-          fabricMesh.rotation.y = mouseX * 0.25;
-        }
-
-        // Update camera position from GSAP-tweened state
-        camera.position.set(cameraState.x, cameraState.y, cameraState.z);
-        camera.lookAt(0, 0, 0);
-
-        // --- PROCEDURAL FABRIC DISPLACEMENT ---
-        if (fabricGroup.visible) {
-          for (let i = 0; i < positionAttribute.count; i++) {
-            const x = positionAttribute.getX(i);
-            const y = positionAttribute.getY(i);
-            
-            // Scale coordinates for noise input
-            const nx = x * 0.4;
-            const ny = y * 0.4;
-            
-            // Calculate noise displacement
-            const n = (fbm(nx, ny, time) - 0.5) * 2.0;
-            
-            positionAttribute.setZ(i, n);
-          }
-          positionAttribute.needsUpdate = true;
-          geometry.computeVertexNormals();
-        }
-
-        renderer.render(scene, camera);
-      }
-
-      animate();
-
-      // ==========================================================
-      // 9. UTILITIES (Header, Resize)
-      // ==========================================================
-      const header = document.getElementById('main-header');
-      window.addEventListener('scroll', () => {
-        header.classList.toggle('scrolled', window.scrollY > 50);
-      }, { passive: true });
-
-      window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        ScrollTrigger.refresh();
-      });
-
-      window.addEventListener('load', () => {
-        ScrollTrigger.refresh();
-      });
-
-    })();
+    });
   </script>
-
 </body>
 </html>
