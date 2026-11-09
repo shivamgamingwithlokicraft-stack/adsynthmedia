@@ -1,0 +1,62 @@
+/* Keep your existing tailwind imports and agency variables */
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0a0a0a;
+  --color-surface: #121212;
+  --color-text: #e5e5e5;
+  --color-muted: #888888;
+  --color-brand: #00f0ff;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* --- OMBRINE LUXURY THEME --- */
+.font-serif {
+  font-family: 'Playfair Display', serif;
+}
+
+.ombrine-bg {
+  background-color: #f7f6f2; /* Off-white luxury background */
+  color: #1a1a1a;
+}
+
+.ombrine-text-muted {
+  color: #666;
+}
+
+/* Elegant hover effect for look cards */
+.look-card {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.look-card img {
+  transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.look-card:hover img {
+  transform: scale(1.05);
+}
+
+.look-card .look-overlay {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.look-card:hover .look-overlay {
+  opacity: 1;
+}
