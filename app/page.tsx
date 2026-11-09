@@ -1,5 +1,4 @@
 "use client";
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight, Code, Layout, Box, ShoppingCart, Smartphone, Zap, Mail, Phone, MapPin, ExternalLink, MousePointer2, Rocket, ShieldCheck, CheckCircle2, Sparkles } from 'lucide-react';
 
@@ -50,7 +49,8 @@ export default function AdSynthHome() {
       {/* HERO SECTION */}
       <section className="relative min-h-[90vh] flex flex-col items-center justify-center pt-24 pb-12 px-6 overflow-hidden">
         <div className="text-center max-w-5xl z-10">
-          <div className="inline-flex items-center gap-2 bg-white text-pink-600 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest mb-8 border border-pink-200 shadow-sm">
+          
+          <div className="animate-fade-in-up delay-100 inline-flex items-center gap-2 bg-white text-pink-600 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest mb-8 border border-pink-200 shadow-sm">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-pink-500"></span>
@@ -58,25 +58,21 @@ export default function AdSynthHome() {
             Accepting New Projects for 2026
           </div>
           
-          <h1 className="text-6xl md:text-8xl font-serif font-bold tracking-tight text-gray-900 mb-6 leading-[1.05]">
+          <h1 className="animate-fade-in-up delay-200 text-6xl md:text-8xl font-serif font-bold tracking-tight text-gray-900 mb-6 leading-[1.05]">
             Beyond Websites.<br/>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-rose-600 italic relative inline-block">
               Into Experiences.
-              <motion.div 
-                animate={{ y: [0, -10, 0], rotate: [0, 15, 0] }} 
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -top-12 -right-12 text-pink-300 hidden md:block"
-              >
+              <div className="animate-float absolute -top-12 -right-12 text-pink-400 hidden md:block">
                 <Sparkles size={56} />
-              </motion.div>
+              </div>
             </span>
           </h1>
           
-          <p className="text-xl text-gray-500 max-w-2xl mx-auto mb-10 font-light">
+          <p className="animate-fade-in-up delay-300 text-xl text-gray-500 max-w-2xl mx-auto mb-10 font-light">
             We build premium websites, immersive 3D experiences, and high-end digital solutions for visionary brands.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <div className="animate-fade-in-up delay-400 flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a href="#prototypes" className="bg-pink-600 text-white px-8 py-4 rounded-full font-bold hover:bg-pink-700 transition-all shadow-xl shadow-pink-200 hover:-translate-y-1 w-full sm:w-auto">
               Explore Our Work
             </a>
@@ -87,11 +83,11 @@ export default function AdSynthHome() {
         </div>
 
         {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-70">
+        <div className="animate-fade-in delay-500 absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-70">
           <span className="text-xs text-gray-400 uppercase tracking-widest">Scroll to explore</span>
-          <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 1.5, repeat: Infinity }} className="w-5 h-8 border-2 border-gray-300 rounded-full flex justify-center pt-1">
-            <div className="w-1 h-2 bg-pink-500 rounded-full"></div>
-          </motion.div>
+          <div className="w-5 h-8 border-2 border-gray-300 rounded-full flex justify-center pt-1">
+            <div className="w-1 h-2 bg-pink-500 rounded-full animate-bounce"></div>
+          </div>
         </div>
       </section>
 
@@ -112,7 +108,7 @@ export default function AdSynthHome() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           
-          {/* Social Lancer Card - Exact URL */}
+          {/* Social Lancer Card */}
           <a 
             href="https://the-social-lancer-2ix1.vercel.app/" target="_blank" rel="noopener noreferrer"
             className="group relative bg-white rounded-3xl p-10 border-2 border-pink-200 shadow-2xl shadow-pink-200/50 hover:shadow-pink-300 transition-all duration-500 hover:-translate-y-2 overflow-hidden flex flex-col justify-between min-h-[420px]"
@@ -135,7 +131,7 @@ export default function AdSynthHome() {
             </div>
           </a>
 
-          {/* Snug Wrld Card - Exact URL */}
+          {/* Snug Wrld Card */}
           <a 
             href="https://snugwrld.netlify.app/" target="_blank" rel="noopener noreferrer"
             className="group relative bg-[#111] rounded-3xl p-10 border-2 border-[#444] shadow-2xl shadow-gray-400/20 hover:shadow-[#39ff14]/20 transition-all duration-500 hover:-translate-y-2 overflow-hidden flex flex-col justify-between min-h-[420px] block"

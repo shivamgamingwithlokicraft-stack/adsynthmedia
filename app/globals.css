@@ -1,4 +1,4 @@
-/* Keep your existing tailwind imports and agency variables */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -12,8 +12,8 @@
 html { scroll-behavior: smooth; }
 
 body {
-  background-color: var(--color-bg);
-  color: var(--color-text);
+  background-color: #fdfbfb;
+  color: #1a1a1a;
   font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
@@ -23,40 +23,62 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Space Grotesk', sans-serif;
 }
 
-/* --- OMBRINE LUXURY THEME --- */
-.font-serif {
-  font-family: 'Playfair Display', serif;
+/* Pure CSS Animations (Bulletproof) */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.ombrine-bg {
-  background-color: #f7f6f2; /* Off-white luxury background */
-  color: #1a1a1a;
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-.ombrine-text-muted {
-  color: #666;
+@keyframes float {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(10deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
 }
 
-/* Elegant hover effect for look cards */
-.look-card {
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
-.look-card img {
-  transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
 }
 
-.look-card:hover img {
-  transform: scale(1.05);
+/* Apply animations */
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.look-card .look-overlay {
-  opacity: 0;
-  transition: opacity 0.5s ease;
+.animate-fade-in {
+  animation: fadeIn 1s ease-out forwards;
 }
 
-.look-card:hover .look-overlay {
-  opacity: 1;
+.animate-float {
+  animation: float 6s ease-in-out infinite;
 }
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 20s linear infinite;
+}
+
+.delay-100 { animation-delay: 0.1s; opacity: 0; }
+.delay-200 { animation-delay: 0.2s; opacity: 0; }
+.delay-300 { animation-delay: 0.3s; opacity: 0; }
+.delay-400 { animation-delay: 0.4s; opacity: 0; }
+.delay-500 { animation-delay: 0.5s; opacity: 0; }
